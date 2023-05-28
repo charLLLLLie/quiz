@@ -9,8 +9,8 @@ import com.example.quiz.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
-   // private lateinit var trueButton: androidx.appcompat.widget.AppCompatButton
-   // private lateinit var falseButton: androidx.appcompat.widget.AppCompatButton
+    // private lateinit var trueButton: androidx.appcompat.widget.AppCompatButton
+    // private lateinit var falseButton: androidx.appcompat.widget.AppCompatButton
     private lateinit var binding: ActivityMainBinding
 
     private val questionBank = listOf(
@@ -30,38 +30,52 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-       // trueButton = findViewById(R.id.true_button)
-       // falseButton = findViewById(R.id.false_button)
+        // trueButton = findViewById(R.id.true_button)
+        // falseButton = findViewById(R.id.false_button)
 
 
         binding.trueButton.setOnClickListener {
-          checkAnswer(true)
+            checkAnswer(true)
         }
 
         binding.falseButton.setOnClickListener { view: View ->
             checkAnswer(false)
         }
 
-        binding.nextButton.setOnClickListener{
-            curentIndex = (curentIndex + 1) % questionBank.size
-            updateQuestion()
+        binding.nextButton.setOnClickListener {
+            nextQuestion()
         }
-
-
+        binding.questionTextView.setOnClickListener {
+            nextQuestion()
+        }
+        binding.previousButton.setOnClickListener {
+            prevQuestion()
+        }
     }
-    private fun updateQuestion(){
+
+    private fun updateQuestion() {
         val questionTextResId = questionBank[curentIndex].textResId
         binding.questionTextView.setText(questionTextResId)
     }
 
-    private fun checkAnswer(userAnswer: Boolean){
+    private fun nextQuestion() {
+        curentIndex = (curentIndex + 1) % questionBank.size
+        updateQuestion()
+    }
+
+    private fun prevQuestion() {
+        curentIndex = (curentIndex - 1) % questionBank.size
+        updateQuestion()
+    }
+
+    private fun checkAnswer(userAnswer: Boolean) {
         val correctAnswer = questionBank[curentIndex].answer
 
-        val messageResId = if (userAnswer == correctAnswer){
+        val messageResId = if (userAnswer == correctAnswer) {
             R.string.correct_toast
-        }else{
+        } else {
             R.string.incorrect_toast
         }
-        Toast.makeText(this,messageResId,Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, messageResId, Toast.LENGTH_SHORT).show()
     }
 }
