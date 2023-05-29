@@ -1,12 +1,10 @@
 package com.example.quiz
 
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.example.quiz.databinding.ActivityMainBinding
-import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
     // private lateinit var trueButton: androidx.appcompat.widget.AppCompatButton
